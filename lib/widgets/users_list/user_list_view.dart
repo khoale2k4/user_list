@@ -1,15 +1,16 @@
 import 'package:flutter/material.dart';
+import 'package:user_list/models/user_model.dart';
 import './user_list_item.dart';
 import './load_more_button.dart';
 
 class UserListView extends StatelessWidget {
   final ScrollController scrollController;
-  final List<dynamic> users;
+  final List<User> users;
   final bool isLoadingMore;
   final int currentPage;
   final Future<void> Function() onRefresh;
   final Function(int) onLoadMore;
-  final Function(dynamic) onUserTap;
+  final Function(User) onUserTap;
 
   const UserListView({
     super.key,

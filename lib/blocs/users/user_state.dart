@@ -20,7 +20,7 @@ class UserLoaded extends UserState {
   UserLoaded({required this.users, required this.page, this.adding = false});
 
   @override
-  List<Object?> get props => [users, page];
+  List<Object?> get props => [users, page, adding];
 }
 
 class UserDetailLoaded extends UserState {

@@ -55,7 +55,6 @@ class UserDetailHeader extends StatelessWidget {
       ],
       flexibleSpace: FlexibleSpaceBar(
         background: Container(
-          // ... Gradient và background pattern giữ nguyên ...
           decoration: BoxDecoration(
             gradient: LinearGradient(
               colors: [Colors.blue.shade400, Colors.blue.shade600, Colors.blue.shade800],

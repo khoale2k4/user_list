@@ -49,4 +49,30 @@ class UserRepository {
       return Response(false, "Error fetching user detail: $error", null);
     }
   }
+
+  Future<Response<User>> createUser(User user) async {
+    try {
+      final url = Uri.parse(baseUrl);
+      final headers = {
+        'Content-Type': 'application/json',
+        'x-api-key': 'reqres-free-v1',
+      };
+      final body = json.encode(user.toJson());
+
+      final res = await http.post(url, headers: headers, body: body);
+
+      if (res.statusCode == 201) {
+        final jsonBody = json.decode(res.body);
+        final user = User.fromJson(jsonBody);
+
+        return Response(true, "User created successfully", user);
+      } else {
+        return Response(
+            false, "Failed to create user: ${res.statusCode}", null);
+      }
+    } catch (error) {
+      print("Error creating user: $error");
+      return Response(false, "Error creating user: $error", null);
+    }
+  }
 }

@@ -5,8 +5,8 @@ import 'package:user_list/blocs/users/user_bloc.dart';
 import 'package:user_list/blocs/users/user_event.dart';
 import 'package:user_list/blocs/users/user_state.dart';
 import '../widgets/user_detail/user_detail_content.dart';
-import '../widgets/share/user_loading_view.dart';
-import '../widgets/share/user_error_view.dart';
+import '../widgets/share/loading_view.dart';
+import '../widgets/share/error_view.dart';
 
 class UserDetailScreen extends StatefulWidget {
   final String userId;

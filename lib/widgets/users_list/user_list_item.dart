@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:user_list/models/user_model.dart';
 
 class UserListItem extends StatelessWidget {
-  final dynamic user;
+  final User user;
   final int index;
   final VoidCallback onTap;
 

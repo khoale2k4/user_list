@@ -4,7 +4,7 @@ import 'user_detail_header.dart';
 import 'user_info_card.dart';
 
 class UserDetailContent extends StatelessWidget {
-  final User user; 
+  final User user;
   final Animation<Offset> slideAnimation;
   final Animation<double> fadeAnimation;
   final Animation<double> scaleAnimation;
@@ -16,8 +16,12 @@ class UserDetailContent extends StatelessWidget {
     required this.fadeAnimation,
     required this.scaleAnimation,
   });
-  
-  void _showShareOptions(BuildContext context) { /* ... Logic show modal ... */ }
+
+  void _showShareOptions(BuildContext context) {
+    ScaffoldMessenger.of(context).showSnackBar(
+      SnackBar(content: Text('Bấm share')),
+    );
+  }
   void _launchEmail(BuildContext context, String email) {
     ScaffoldMessenger.of(context).showSnackBar(
       SnackBar(content: Text('Mở email: $email')),
