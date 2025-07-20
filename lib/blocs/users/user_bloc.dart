@@ -7,55 +7,58 @@ import 'package:user_list/repositories/user_repository.dart';
 class UserBloc extends Bloc<UserEvent, UserState> {
   final UserRepository userRepository = UserRepository();
 
-  UserBloc() : super(UserInitial()) {
+  UserBloc() : super(const UserState.initial()) {
     on<FetchUserList>(_onFetchUserList);
     on<FetchUserDetail>(_onFetchUserDetail);
   }
 
   Future<void> _onFetchUserList(
-      FetchUserList event, Emitter<UserState> emit) async {
-    if (state is UserLoading) return;
-
+    FetchUserList event,
+    Emitter<UserState> emit,
+  ) async {
     final isRefresh = event.page == null;
     int pageToFetch = event.page ?? 1;
-    List<User> existingUsers = [];
+    List<User> currentUsers = [];
 
-    if (!isRefresh && state is UserLoaded) {
-      emit(UserLoaded(
-        users: (state as UserLoaded).users,
-        page: (state as UserLoaded).page,
-        adding: true,
-      ));
-      existingUsers = (state as UserLoaded).users;
-      pageToFetch = event.page ?? (state as UserLoaded).page + 1;
+    if (state is UserLoaded) {
+      final currentState = state as UserLoaded;
+
+      if (!isRefresh) {
+        emit(currentState.copyWith(adding: true));
+        currentUsers = currentState.users;
+        pageToFetch = currentState.page + 1;
+      } else {
+        emit(const UserState.loading());
+      }
     } else {
-      emit(UserLoading());
+      emit(const UserState.loading());
     }
 
     final response = await userRepository.getUsers(page: pageToFetch);
 
     if (response.success && response.data != null) {
-      final newUsers = response.data!;
-      emit(UserLoaded(
-        users: isRefresh ? newUsers : [...existingUsers, ...newUsers],
+      final fetchedUsers = response.data!;
+      emit(UserState.loaded(
+        users: isRefresh ? fetchedUsers : [...currentUsers, ...fetchedUsers],
         page: pageToFetch,
-        adding: false,
       ));
     } else {
-      emit(UserError(response.message));
+      emit(UserState.error(response.message));
     }
   }
 
   Future<void> _onFetchUserDetail(
-      FetchUserDetail event, Emitter<UserState> emit) async {
-    emit(UserLoading());
+    FetchUserDetail event,
+    Emitter<UserState> emit,
+  ) async {
+    emit(const UserState.loading());
 
     final response = await userRepository.getUserDetail(event.userId);
 
-    if (response.success) {
-      emit(UserDetailLoaded(response.data!));
+    if (response.success && response.data != null) {
+      emit(UserState.detailLoaded(response.data!));
     } else {
-      emit(UserError(response.message));
+      emit(UserState.error(response.message));
     }
   }
 }

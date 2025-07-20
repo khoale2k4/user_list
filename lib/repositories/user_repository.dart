@@ -34,7 +34,6 @@ class UserRepository {
           data: users,
           message: "Fetched successfully",
         );
-        ;
       } else {
         return Response(
           success: false,
