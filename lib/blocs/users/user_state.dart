@@ -15,9 +15,9 @@ class UserLoading extends UserState {}
 class UserLoaded extends UserState {
   final List<User> users;
   final int page;
-  bool adding = false;
+  final bool adding;
 
-  UserLoaded({required this.users, required this.page, this.adding = false});
+  const UserLoaded({required this.users, required this.page, this.adding = false});
 
   @override
   List<Object?> get props => [users, page, adding];

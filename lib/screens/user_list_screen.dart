@@ -6,8 +6,8 @@ import 'package:user_list/blocs/users/user_event.dart';
 import 'package:user_list/blocs/users/user_state.dart';
 import 'package:user_list/widgets/share/error_view.dart';
 import 'package:user_list/widgets/share/loading_view.dart';
-import 'package:user_list/widgets/users_list/user_list_app_bar.dart';
-import 'package:user_list/widgets/users_list/user_list_view.dart';
+import 'package:user_list/widgets/user_list/user_list_app_bar.dart';
+import 'package:user_list/widgets/user_list/user_list_view.dart';
 
 class UserListScreen extends StatefulWidget {
   const UserListScreen({super.key});

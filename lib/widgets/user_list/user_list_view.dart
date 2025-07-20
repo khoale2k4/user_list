@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:user_list/models/user_model.dart';
-import './user_list_item.dart';
-import './load_more_button.dart';
+import 'user_list_item.dart';
+import 'load_more_button.dart';
 
 class UserListView extends StatelessWidget {
   final ScrollController scrollController;
