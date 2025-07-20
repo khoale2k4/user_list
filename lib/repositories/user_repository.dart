@@ -17,7 +17,17 @@ class UserRepository {
         final jsonBody = json.decode(res.body);
         final List usersJson = jsonBody['data'];
 
+        // for (var u in usersJson) {
+        //   try {
+        //     final user = User.fromJson(u);
+        //     print('Parsed user: $user');
+        //   } catch (e) {
+        //     print('Lỗi với user: $u');
+        //     print(e);
+        //   }
+        // }
         final users = usersJson.map((u) => User.fromJson(u)).toList();
+        // print(jsonBody);
 
         return Response(
           success: true,

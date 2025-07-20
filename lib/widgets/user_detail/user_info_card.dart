@@ -40,7 +40,7 @@ class UserInfoCard extends StatelessWidget {
           UserInfoTile(
             icon: Icons.person_outline,
             title: 'Họ tên',
-            value: '${user.firstName} ${user.lastName}',
+            value: '${user.first_name} ${user.last_name}',
           ),
           _buildDivider(),
           UserInfoTile(

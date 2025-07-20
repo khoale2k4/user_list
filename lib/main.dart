@@ -5,15 +5,15 @@ import 'package:user_list/routes/app_router.dart';
 
 void main() {
   runApp(
-    HelloWorld()
-      // MultiBlocProvider(
-      //   providers: [
-      //     BlocProvider(
-      //       create: (_) => UserBloc(),
-      //     ),
-      //   ],
-      //   child: MainApp(),
-      // ),
+    // HelloWorld()
+      MultiBlocProvider(
+        providers: [
+          BlocProvider(
+            create: (_) => UserBloc(),
+          ),
+        ],
+        child: MainApp(),
+      ),
       );
 }
 

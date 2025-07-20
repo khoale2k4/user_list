@@ -81,7 +81,7 @@ class UserDetailHeader extends StatelessWidget {
                   ),
                   const SizedBox(height: 16),
                   Text(
-                    '${user.firstName} ${user.lastName}',
+                    '${user.first_name} ${user.last_name}',
                     style: const TextStyle(fontSize: 24, fontWeight: FontWeight.bold, color: Colors.white, shadows: [Shadow(color: Colors.black26, offset: Offset(0, 2), blurRadius: 4)]),
                   ),
                 ],

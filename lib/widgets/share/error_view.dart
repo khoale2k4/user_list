@@ -64,7 +64,6 @@ class ErrorView extends StatelessWidget {
       backgroundColor: Colors.white,
       foregroundColor: Colors.black87,
       elevation: 0,
-      title: const Text('Chi tiết người dùng', style: TextStyle(fontWeight: FontWeight.w600, fontSize: 18)),
       centerTitle: true,
     );
   }

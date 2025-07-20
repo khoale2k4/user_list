@@ -57,7 +57,7 @@ class UserListItem extends StatelessWidget {
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         Text(
-                          "${user.firstName} ${user.lastName}",
+                          "${user.first_name} ${user.last_name}",
                           style: const TextStyle(fontSize: 16, fontWeight: FontWeight.w600, color: Colors.black87),
                         ),
                         const SizedBox(height: 4),
