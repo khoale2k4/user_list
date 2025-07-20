@@ -1,15 +1,15 @@
-class Response<T> {
-  final bool success;
-  final String message;
-  final T? data;
+import 'package:freezed_annotation/freezed_annotation.dart';
 
-  Response(this.success, this.message, this.data);
+part 'response_model.freezed.dart';
+part 'response_model.g.dart';
 
-  Map<String, dynamic> toJson() {
-    return {
-      'success': success,
-      'message': message,
-      'data': data,
-    };
-  }
+@freezed
+class Response with _$Response {
+  const factory Response({
+    required bool success,
+    required dynamic data,
+    required String message
+  }) = _Response;
+
+  factory Response.fromJson(Map<String, dynamic> json) => _$ResponseFromJson(json);
 }

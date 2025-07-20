@@ -7,7 +7,7 @@ import 'package:user_list/models/user_model.dart';
 class UserRepository {
   String baseUrl = 'https://reqres.in/api/users';
 
-  Future<Response<List<User>>> getUsers({page = 1}) async {
+  Future<Response> getUsers({page = 1}) async {
     try {
       final url = Uri.parse('$baseUrl?page=$page');
       final headers = {'x-api-key': 'reqres-free-v1'};
@@ -19,17 +19,30 @@ class UserRepository {
 
         final users = usersJson.map((u) => User.fromJson(u)).toList();
 
-        return Response(true, "Fetched successfully", users);
+        return Response(
+          success: true,
+          data: users,
+          message: "Fetched successfully",
+        );
+        ;
       } else {
-        return Response(false, "Error: ${res.statusCode}", null);
+        return Response(
+          success: false,
+          message: "Error: ${res.statusCode}",
+          data: null,
+        );
       }
     } catch (error) {
       print("Error fetching users: $error");
-      return Response(false, "Error fetching users: $error", null);
+      return Response(
+        success: false,
+        message: "Error fetching users: $error",
+        data: null,
+      );
     }
   }
 
-  Future<Response<User>> getUserDetail(String id) async {
+  Future<Response> getUserDetail(String id) async {
     try {
       final url = Uri.parse('$baseUrl/$id');
       final headers = {'x-api-key': 'reqres-free-v1'};
@@ -40,17 +53,29 @@ class UserRepository {
         final userJson = jsonBody['data'];
         final user = User.fromJson(userJson);
 
-        return Response(true, "Fetched user detail", user);
+        return Response(
+          success: true,
+          message: "Fetched user detail",
+          data: user,
+        );
       } else {
-        return Response(false, "Error: ${res.statusCode}", null);
+        return Response(
+          success: false,
+          message: "Error: ${res.statusCode}",
+          data: null,
+        );
       }
     } catch (error) {
       print("Error fetching user detail: $error");
-      return Response(false, "Error fetching user detail: $error", null);
+      return Response(
+        success: false,
+        message: "Error fetching user detail: $error",
+        data: null,
+      );
     }
   }
 
-  Future<Response<User>> createUser(User user) async {
+  Future<Response> createUser(User user) async {
     try {
       final url = Uri.parse(baseUrl);
       final headers = {
@@ -65,14 +90,25 @@ class UserRepository {
         final jsonBody = json.decode(res.body);
         final user = User.fromJson(jsonBody);
 
-        return Response(true, "User created successfully", user);
+        return Response(
+          success: true,
+          message: "User created successfully",
+          data: user,
+        );
       } else {
         return Response(
-            false, "Failed to create user: ${res.statusCode}", null);
+          success: false,
+          message: "Failed to create user: ${res.statusCode}",
+          data: null,
+        );
       }
     } catch (error) {
       print("Error creating user: $error");
-      return Response(false, "Error creating user: $error", null);
+      return Response(
+        success: false,
+        message: "Error creating user: $error",
+        data: null,
+      );
     }
   }
 }

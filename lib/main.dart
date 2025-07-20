@@ -5,15 +5,37 @@ import 'package:user_list/routes/app_router.dart';
 
 void main() {
   runApp(
-    MultiBlocProvider(
-      providers: [
-        BlocProvider(
-          create: (_) => UserBloc(),
+    HelloWorld()
+      // MultiBlocProvider(
+      //   providers: [
+      //     BlocProvider(
+      //       create: (_) => UserBloc(),
+      //     ),
+      //   ],
+      //   child: MainApp(),
+      // ),
+      );
+}
+
+class HelloWorld extends StatelessWidget {
+  const HelloWorld({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return MaterialApp(
+      debugShowCheckedModeBanner: false,
+      home: Scaffold(
+        body: Center(
+          child: const Text(
+            "Hello world!",
+            style: TextStyle(
+              fontSize: 40,
+            ),
+          ),
         ),
-      ],
-      child: MainApp(),
-    ),
-  );
+      ),
+    );
+  }
 }
 
 class MainApp extends StatelessWidget {
