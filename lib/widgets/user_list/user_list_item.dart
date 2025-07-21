@@ -49,15 +49,21 @@ class UserListItem extends StatelessWidget {
                     tag: "avatar_${user.id}",
                     child: CircleAvatar(
                       radius: 28,
-                      backgroundImage: NetworkImage(user.avatar),
-                      backgroundColor: Colors.grey.shade100,
-                      onBackgroundImageError: (_, __) {},
+                      backgroundColor: Colors.grey[200],
                       child: ClipOval(
-                        child: Image.asset(
-                          'lib/assets/images/user.png',
+                        child: Image.network(
+                          user.avatar,
                           fit: BoxFit.cover,
                           width: 56,
                           height: 56,
+                          errorBuilder: (context, error, stackTrace) {
+                            return Image.asset(
+                              'lib/assets/images/user.png',
+                              fit: BoxFit.cover,
+                              width: 56,
+                              height: 56,
+                            );
+                          },
                         ),
                       ),
                     ),

@@ -3,10 +3,10 @@ import 'package:user_list/blocs/users/user_event.dart';
 import 'package:user_list/blocs/users/user_state.dart';
 import 'package:user_list/models/user_model.dart';
 import 'package:user_list/repositories/user/interface_user_repository.dart';
-import 'package:user_list/repositories/user/user_repository_v2.dart';
+import 'package:user_list/repositories/user/retrofit_user.dart';
 
 class UserBloc extends Bloc<UserEvent, UserState> {
-  final IUserRepository userRepository;
+  final RetrofitUser userRepository;
 
   UserBloc({required this.userRepository}) : super(const UserState.initial()) {
     on<FetchUserList>(_onFetchUserList);
@@ -35,15 +35,23 @@ class UserBloc extends Bloc<UserEvent, UserState> {
       emit(const UserState.loading());
     }
 
-    final response = await userRepository.getUsers(page: pageToFetch);
+    final response = await userRepository.getUsers(pageToFetch);
 
-    if (response.success && response.data != null) {
-      final fetchedUsers = response.data!;
-      emit(UserState.loaded(
-        users: isRefresh ? fetchedUsers : [...currentUsers, ...fetchedUsers],
-        page: pageToFetch,
-      ));
-    } else {
+    try {
+      if (
+          // response.success &&
+          response != null) {
+        final List<User> fetchedUsers = (response['data'] as List)
+            .map((user) => User.fromJson(user))
+            .toList();
+        emit(UserState.loaded(
+          users: isRefresh ? fetchedUsers : [...currentUsers, ...fetchedUsers],
+          page: pageToFetch,
+        ));
+      } else {
+        emit(UserState.error(response.message));
+      }
+    } catch (error) {
       emit(UserState.error(response.message));
     }
   }
@@ -56,8 +64,8 @@ class UserBloc extends Bloc<UserEvent, UserState> {
 
     final response = await userRepository.getUserDetail(event.userId);
 
-    if (response.success && response.data != null) {
-      emit(UserState.detailLoaded(response.data!));
+    if (response != null && response['data'] != null) {
+      emit(UserState.detailLoaded(User.fromJson(response['data'])));
     } else {
       emit(UserState.error(response.message));
     }

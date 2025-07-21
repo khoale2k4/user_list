@@ -82,14 +82,21 @@ class UserDetailHeader extends StatelessWidget {
                       backgroundColor: Colors.white,
                       child: CircleAvatar(
                         radius: 60,
-                        backgroundImage: NetworkImage(user.avatar),
-                        onBackgroundImageError: (_, __) {},
+                        backgroundColor: Colors.grey[200],
                         child: ClipOval(
-                          child: Image.asset(
-                            'lib/assets/images/user.png',
+                          child: Image.network(
+                            user.avatar,
                             fit: BoxFit.cover,
-                            width: 128,
-                            height: 128,
+                            width: 120,
+                            height: 120,
+                            errorBuilder: (context, error, stackTrace) {
+                              return Image.asset(
+                                'lib/assets/images/user.png',
+                                fit: BoxFit.cover,
+                                width: 120,
+                                height: 120,
+                              );
+                            },
                           ),
                         ),
                       ),
