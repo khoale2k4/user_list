@@ -17,7 +17,9 @@ class UserListItem extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return TweenAnimationBuilder<double>(
-      duration: Duration(milliseconds: 300 + (index % 10 * 80)), // Giới hạn index để animation không quá chậm
+      duration: Duration(
+          milliseconds: 300 +
+              (index % 10 * 80)), // Giới hạn index để animation không quá chậm
       tween: Tween<double>(begin: 0, end: 1),
       curve: Curves.easeOutCubic,
       builder: (context, value, child) {
@@ -49,6 +51,15 @@ class UserListItem extends StatelessWidget {
                       radius: 28,
                       backgroundImage: NetworkImage(user.avatar),
                       backgroundColor: Colors.grey.shade100,
+                      onBackgroundImageError: (_, __) {},
+                      child: ClipOval(
+                        child: Image.asset(
+                          'lib/assets/images/user.png',
+                          fit: BoxFit.cover,
+                          width: 56,
+                          height: 56,
+                        ),
+                      ),
                     ),
                   ),
                   const SizedBox(width: 16),
@@ -58,18 +69,23 @@ class UserListItem extends StatelessWidget {
                       children: [
                         Text(
                           "${user.first_name} ${user.last_name}",
-                          style: const TextStyle(fontSize: 16, fontWeight: FontWeight.w600, color: Colors.black87),
+                          style: const TextStyle(
+                              fontSize: 16,
+                              fontWeight: FontWeight.w600,
+                              color: Colors.black87),
                         ),
                         const SizedBox(height: 4),
                         Text(
                           user.email,
-                          style: TextStyle(fontSize: 14, color: Colors.grey.shade600),
+                          style: TextStyle(
+                              fontSize: 14, color: Colors.grey.shade600),
                           overflow: TextOverflow.ellipsis,
                         ),
                       ],
                     ),
                   ),
-                  Icon(Icons.arrow_forward_ios, size: 16, color: Colors.grey.shade400),
+                  Icon(Icons.arrow_forward_ios,
+                      size: 16, color: Colors.grey.shade400),
                 ],
               ),
             ),

@@ -2,12 +2,13 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:user_list/blocs/users/user_event.dart';
 import 'package:user_list/blocs/users/user_state.dart';
 import 'package:user_list/models/user_model.dart';
-import 'package:user_list/repositories/user_repository.dart';
+import 'package:user_list/repositories/user/interface_user_repository.dart';
+import 'package:user_list/repositories/user/user_repository_v2.dart';
 
 class UserBloc extends Bloc<UserEvent, UserState> {
-  final UserRepository userRepository = UserRepository();
+  final IUserRepository userRepository;
 
-  UserBloc() : super(const UserState.initial()) {
+  UserBloc({required this.userRepository}) : super(const UserState.initial()) {
     on<FetchUserList>(_onFetchUserList);
     on<FetchUserDetail>(_onFetchUserDetail);
   }
