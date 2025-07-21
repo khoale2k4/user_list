@@ -8,6 +8,7 @@ class UserListAppBar extends StatelessWidget implements PreferredSizeWidget {
     return AppBar(
       elevation: 0,
       backgroundColor: Colors.white,
+      automaticallyImplyLeading: false,
       foregroundColor: Colors.black87,
       title: const Text('Danh sách người dùng', style: TextStyle(fontWeight: FontWeight.w600, fontSize: 20)),
       centerTitle: true,

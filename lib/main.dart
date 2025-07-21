@@ -3,6 +3,8 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:user_list/global_provider.dart';
 import 'package:user_list/routes/app_router.dart';
 
+final _appRouter = AppRouter();
+
 void main() {
   runApp(
     // HelloWorld()
@@ -40,7 +42,7 @@ class MainApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp.router(
-      routerConfig: router,
+      routerConfig: _appRouter.config(),
     );
   }
 }

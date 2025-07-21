@@ -1,14 +1,17 @@
+import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 import 'package:user_list/blocs/users/user_bloc.dart';
 import 'package:user_list/blocs/users/user_event.dart';
 import 'package:user_list/blocs/users/user_state.dart';
+import 'package:user_list/routes/app_router.dart';
 import 'package:user_list/widgets/share/error_view.dart';
 import 'package:user_list/widgets/share/loading_view.dart';
 import 'package:user_list/widgets/user_list/user_list_app_bar.dart';
 import 'package:user_list/widgets/user_list/user_list_view.dart';
 
+@RoutePage()
 class UserListScreen extends StatefulWidget {
   const UserListScreen({super.key});
 
@@ -22,6 +25,7 @@ class _UserListScreenState extends State<UserListScreen> {
   @override
   void initState() {
     super.initState();
+    print('UserList init');
     if (context.read<UserBloc>().state is! UserLoaded) {
       context.read<UserBloc>().add(FetchUserList());
     }
@@ -42,7 +46,7 @@ class _UserListScreenState extends State<UserListScreen> {
   }
 
   void _onUserTap(dynamic user) {
-    context.goNamed('userDetail', pathParameters: {'id': user.id.toString()});
+    context.pushRoute(UserDetailRoute(userId: user.id.toString()));
   }
 
   void _onRetry() {

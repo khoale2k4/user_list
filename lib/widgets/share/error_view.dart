@@ -63,6 +63,7 @@ class ErrorView extends StatelessWidget {
     return AppBar(
       backgroundColor: Colors.white,
       foregroundColor: Colors.black87,
+      automaticallyImplyLeading: false,
       elevation: 0,
       centerTitle: true,
     );

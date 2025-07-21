@@ -1,7 +1,12 @@
+import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
+import 'package:user_list/blocs/users/user_bloc.dart';
+import 'package:user_list/blocs/users/user_event.dart';
 import 'package:user_list/models/user_model.dart';
+import 'package:user_list/routes/app_router.dart';
 
 class UserDetailHeader extends StatelessWidget {
   final User user;
@@ -50,7 +55,10 @@ class UserDetailHeader extends StatelessWidget {
       leading: _buildActionButton(
         context,
         icon: Icons.arrow_back,
-        onPressed: () => context.goNamed('userList'),
+        onPressed: () {
+          context.read<UserBloc>().add(FetchUserList());
+          Navigator.pop(context);
+        },
       ),
       actions: [
         _buildActionButton(
