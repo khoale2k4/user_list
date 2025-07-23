@@ -8,11 +8,11 @@ abstract class RetrofitUser {
   factory RetrofitUser(Dio dio, {String? baseUrl}) = _RetrofitUser;
 
   @GET("/users")
-  Future<dynamic> getUsers(@Query("page") int page);
+  Future<dynamic> getUsers(@Query("page") int page); // Map<String, dynamic>
 
   @GET("/users/{id}")
-  Future<dynamic> getUserDetail(@Path("id") String id);
+  Future<dynamic> getUserDetail(@Path("id") String id); // Map<String, dynamic>
 
   @POST("/users")
-  Future<dynamic> createUser(@Body() Map<String, dynamic> user);
+  Future<dynamic> createUser(@Body() Map<String, dynamic> user); // Map<String, dynamic>
 }

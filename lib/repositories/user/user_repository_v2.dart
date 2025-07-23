@@ -50,14 +50,14 @@ class UserRepository implements IUserRepository {
   }
 
   @override
-  Future<Response> createUser(User user) async {
+  Future<Response> createUser(Map<String, dynamic> user) async {
     try {
       final url = Uri.parse(baseUrl);
       final headers = {
         'Content-Type': 'application/json',
         'x-api-key': 'reqres-free-v1',
       };
-      final body = json.encode(user.toJson());
+      final body = json.encode(user);
 
       final res = await http.post(url, headers: headers, body: body);
 

@@ -5,7 +5,7 @@ import 'interface_user_repository.dart';
 
 class MockUserRepo implements IUserRepository {
   @override
-  Future<Response> createUser(User user) async {
+  Future<Response> createUser(Map<String, dynamic> user) async {
     return Response(success: true, data: null, message: "OK");
   }
 

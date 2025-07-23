@@ -3,10 +3,10 @@ import 'package:user_list/blocs/users/user_event.dart';
 import 'package:user_list/blocs/users/user_state.dart';
 import 'package:user_list/models/user_model.dart';
 import 'package:user_list/repositories/user/interface_user_repository.dart';
-import 'package:user_list/repositories/user/retrofit_user.dart';
+import 'package:user_list/repositories/user/user_repository_v2.dart';
 
 class UserBloc extends Bloc<UserEvent, UserState> {
-  final RetrofitUser userRepository;
+  final IUserRepository userRepository;
 
   UserBloc({required this.userRepository}) : super(const UserState.initial()) {
     on<FetchUserList>(_onFetchUserList);
@@ -35,23 +35,15 @@ class UserBloc extends Bloc<UserEvent, UserState> {
       emit(const UserState.loading());
     }
 
-    final response = await userRepository.getUsers(pageToFetch);
+    final response = await userRepository.getUsers(page: pageToFetch);
 
-    try {
-      if (
-          // response.success &&
-          response != null) {
-        final List<User> fetchedUsers = (response['data'] as List)
-            .map((user) => User.fromJson(user))
-            .toList();
-        emit(UserState.loaded(
-          users: isRefresh ? fetchedUsers : [...currentUsers, ...fetchedUsers],
-          page: pageToFetch,
-        ));
-      } else {
-        emit(UserState.error(response.message));
-      }
-    } catch (error) {
+    if (response.success && response.data != null) {
+      final fetchedUsers = response.data!;
+      emit(UserState.loaded(
+        users: isRefresh ? fetchedUsers : [...currentUsers, ...fetchedUsers],
+        page: pageToFetch,
+      ));
+    } else {
       emit(UserState.error(response.message));
     }
   }
@@ -64,8 +56,8 @@ class UserBloc extends Bloc<UserEvent, UserState> {
 
     final response = await userRepository.getUserDetail(event.userId);
 
-    if (response != null && response['data'] != null) {
-      emit(UserState.detailLoaded(User.fromJson(response['data'])));
+    if (response.success && response.data != null) {
+      emit(UserState.detailLoaded(response.data!));
     } else {
       emit(UserState.error(response.message));
     }
