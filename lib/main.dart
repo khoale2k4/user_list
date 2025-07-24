@@ -1,12 +1,22 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:user_list/blocs/theme/theme_bloc.dart';
+import 'package:user_list/blocs/theme/theme_state.dart';
 import 'package:user_list/global_provider.dart';
+import 'package:user_list/layout_test.dart';
+import 'package:user_list/models/theme_model.dart';
 import 'package:user_list/routes/app_router.dart';
+import 'package:user_list/themes/theme.dart';
 
 final _appRouter = AppRouter();
 
 void main() {
   runApp(
+    // MaterialApp(
+    //   theme: getTheme(),
+    //   darkTheme: getDarkTheme(),
+    //   home: TestLayout(),
+    // ),
     // HelloWorld()
     MultiBlocProvider(
       providers: getGlobalBlocs(),
@@ -41,8 +51,19 @@ class MainApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp.router(
-      routerConfig: _appRouter.config(),
+    return BlocBuilder<ThemeBloc, ThemeState>(
+      builder: (context, themeState) {
+        return MaterialApp.router(
+          themeMode: themeState.theme == ThemeModel.light
+              ? ThemeMode.light
+              : themeState.theme == ThemeModel.dark
+                  ? ThemeMode.dark
+                  : ThemeMode.system,
+          theme: getTheme(),
+          darkTheme: getDarkTheme(),
+          routerConfig: _appRouter.config(),
+        );
+      },
     );
   }
 }

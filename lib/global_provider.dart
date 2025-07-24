@@ -1,5 +1,6 @@
 import 'package:dio/dio.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:user_list/blocs/theme/theme_bloc.dart';
 import 'package:user_list/blocs/users/user_bloc.dart';
 import 'package:user_list/repositories/user/interface_user_repository.dart';
 import 'package:user_list/repositories/user/retrofit_user.dart';
@@ -25,6 +26,9 @@ List<BlocProvider> getGlobalBlocs() {
   return [
     BlocProvider<UserBloc>(
       create: (_) => UserBloc(userRepository: userRepo),
+    ),
+    BlocProvider<ThemeBloc>(
+      create: (_) => ThemeBloc(),
     ),
   ];
 }
